@@ -24,7 +24,7 @@ public class Shooter extends SubsystemBase {
     }
 
     public enum VelocidadeShooter {
-        NORMAL(0.25),
+        NORMAL(0.40),
         MEDIA(0.50),
         ALTA(0.60),
         TURBO(0.70);
