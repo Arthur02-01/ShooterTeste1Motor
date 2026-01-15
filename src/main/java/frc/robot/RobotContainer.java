@@ -7,7 +7,9 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.subsystems.Alinhador;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Shooter.VelocidadeShooter;
+import frc.robot.commands.Alinhador.AlinhadorManual;
 import frc.robot.commands.Alinhador.PararAlinhador;
+import frc.robot.commands.Alinhador.AlinhadorManualJoytick;
     
 
 import frc.robot.commands.Shooter.*;
@@ -62,6 +64,17 @@ public class RobotContainer {
         btnB.onTrue(new ShooterVelocidade(shooter, VelocidadeShooter.ALTA));
         btnY.onTrue(new ShooterVelocidade(shooter, VelocidadeShooter.TURBO));
         rt.onTrue(new PararAlinhador(Alinhador));
+
+        new Trigger(() -> Math.abs(xbox.getLeftY()) > 0.1)
+    .whileTrue(
+        new AlinhadorManualJoystick(
+            Alinhador,
+            () -> -xbox.getLeftY()
+        )
+    );
+
+        /*new Trigger(() -> xbox.getLeftY() < -0.2)
+        .whileTrue(new AlinhadorManual(Alinhador));*/
     }
 
     public Command getAutonomousCommand() {
